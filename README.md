@@ -1,21 +1,35 @@
-# Gerenciador de Biblioteca Pessoal
+# Biblioteca Pessoal
+Sistema de gerenciamento de biblioteca pessoal desenvolvido com Spring Boot.
 
-Este é um projeto Maven básico para gerenciar uma biblioteca pessoal.
-
-## Como executar
-
-Certifique-se de ter o Maven instalado.
-
-Para compilar: `mvn compile`
-
-Para executar: `mvn exec:java -Dexec.mainClass="com.example.App"`
-
-Para testar: `mvn test`
+## Tecnologias
+* **Java 17**
+* **Spring Boot 3.2.4**
+* **Spring Security** - Autenticação e autorização
+* **Spring Data JPA** - Persistência de dados
+* **MySQL** - Banco de dados
+* **Testcontainers** - Testes com banco real via Docker
+* **Thymeleaf** - Templates HTML
+* **Bootstrap 5** - Interface responsiva
+* **JaCoCo** - Cobertura de testes
 
 ## Estrutura do Projeto
+* `src/main/java/com/biblioteca/`
+    * `BibliotecaPessoalApplication.java` # Classe principal
+    * `config/` # Configuração de segurança
+    * `controller/` # Login e registro, CRUD de livros, Painel, Perfil
+    * `model/` # Entidades Livro e Usuário
+    * `repository/` # Acesso ao banco
+    * `service/` # Lógica de negócio
 
-- `src/main/java`: Código fonte principal
-- `src/main/resources`: Recursos
-- `src/test/java`: Testes
-- `src/test/resources`: Recursos de teste
-- `pom.xml`: Configuração do Maven
+## Funcionalidades
+* **Autenticação**: Login, cadastro e logout
+* **Livros**: Cadastrar, editar, excluir e listar livros
+* **Status de Leitura**: Não iniciado, Lendo, Concluído, Pausado
+* **Painel**: Estatísticas de leitura
+* **Perfil**: Editar dados e alterar senha
+
+## Pré-requisitos
+* Java 17 ou superior
+* Maven 3.6 ou superior
+* MySQL 8.0 ou superior
+* Docker Desktop (para rodar os testes)

@@ -1,3 +1,17 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
 # Maven
 target/
 pom.xml.tag
@@ -10,39 +24,50 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-#compilação de arquivos
-*.class
-
-#arquivos de log
-*.log
-
-#pacotes
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# IntelliJ IDEA
+# IDE - IntelliJ
 .idea/
-*.iml
 *.iws
+*.iml
 *.ipr
 out/
 
-# Vscode
+# IDE - Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+springBeans
+.sts4-cache
+bin/
+
+# IDE - VS Code
 .vscode/
 
+# IDE - NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+.nb-gradle/
+
+# OS files
 .DS_Store
 Thumbs.db
 
+# Database files
 data/
 *.db
 *.trace.db
 *.lock.db
 
+# Application
+logs/
+*.log
+
+# Test output
+test-output/
+
+# SonarQube
 .sonar/
 .scannerwork/
-
-
