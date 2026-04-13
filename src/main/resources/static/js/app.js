@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('img[data-fallback]').forEach((img) => {
-    const fallback = img.getAttribute('data-fallback');
+    const fallback = img.dataset.fallback;
     if (!fallback) {
       return;
     }
