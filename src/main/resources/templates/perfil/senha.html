@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Alterar senha')}"></head>
+<body class="app-shell">
+<div class="page-wrap">
+	<div class="container-xxl">
+		<div th:replace="~{fragments :: navbar('perfil')}"></div>
+
+		<section class="surface p-4 p-lg-5 reveal">
+			<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+				<div>
+					<div class="badge-soft mb-2"><i class="bi bi-shield-lock"></i> Segurança da conta</div>
+					<h1 class="section-title h3 fw-bold mb-2">Alterar senha</h1>
+					<p class="muted-text mb-0">Escolha uma nova senha para manter sua sessão protegida.</p>
+				</div>
+				<a th:href="@{/perfil}" class="btn btn-ghost">Voltar</a>
+			</div>
+
+			<div th:if="${mensagemErro}" class="alert alert-danger alert-glass border-0 mb-3" th:text="${mensagemErro}"></div>
+			<div th:if="${mensagemSucesso}" class="alert alert-success alert-glass border-0 mb-3" th:text="${mensagemSucesso}"></div>
+
+			<form th:action="@{/perfil/senha}" method="post" class="row g-3">
+				<div class="col-md-4">
+					<label for="senhaAtual" class="form-label fw-semibold">Senha atual</label>
+					<input id="senhaAtual" name="senhaAtual" type="password" class="form-control" required>
+				</div>
+				<div class="col-md-4">
+					<label for="novaSenha" class="form-label fw-semibold">Nova senha</label>
+					<input id="novaSenha" name="novaSenha" type="password" class="form-control" required>
+				</div>
+				<div class="col-md-4">
+					<label for="confirmarSenha" class="form-label fw-semibold">Confirmar senha</label>
+					<input id="confirmarSenha" name="confirmarSenha" type="password" class="form-control" required>
+				</div>
+				<div class="col-12 d-flex flex-wrap gap-2 mt-2">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+					<button type="submit" class="btn btn-primary px-4">Salvar senha</button>
+					<a th:href="@{/perfil}" class="btn btn-ghost px-4">Cancelar</a>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+</body>
+</html>

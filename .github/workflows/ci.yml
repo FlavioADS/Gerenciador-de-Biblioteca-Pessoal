@@ -12,6 +12,21 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: biblioteca_pessoal
+          MYSQL_USER: biblioteca
+          MYSQL_PASSWORD: biblioteca123
+          MYSQL_ROOT_PASSWORD: root123
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot123"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
 
     steps:
       - name: Baixar código
@@ -24,11 +39,12 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      - name: Dar permissão ao Maven Wrapper
-        run: chmod +x mvnw
+      - name: Aguardar MySQL ficar saudável
+        run: |
+          timeout 90 bash -c 'until </dev/tcp/127.0.0.1/3307; do sleep 2; done'
 
       - name: Compilar, testar e gerar cobertura
-        run: ./mvnw clean verify
+        run: mvn -B clean verify
 
       - name: Salvar relatório de cobertura
         if: always()

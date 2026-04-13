@@ -94,6 +94,6 @@ public class LivroController {
                                   RedirectAttributes redirecionamento) {
         livroService.atualizarStatus(id, statusLeitura);
         redirecionamento.addFlashAttribute("mensagemSucesso", "Status atualizado com sucesso!");
-        return "redirect:/livros" + id;
+        return "redirect:/livros";
     }
 }

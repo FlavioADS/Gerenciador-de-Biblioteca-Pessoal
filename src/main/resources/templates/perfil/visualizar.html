@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments :: head('Meu perfil')}"></head>
+<body class="app-shell">
+<div class="page-wrap">
+	<div class="container-xxl">
+		<div th:replace="~{fragments :: navbar('perfil')}"></div>
+
+		<section class="surface p-4 p-lg-5 reveal">
+			<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+				<div>
+					<div class="badge-soft mb-2"><i class="bi bi-person-vcard"></i> Sua conta</div>
+					<h1 class="section-title h3 fw-bold mb-2">Perfil</h1>
+					<p class="muted-text mb-0">Gerencie seus dados e segurança da sessão.</p>
+				</div>
+				<div class="d-flex gap-2">
+					<a th:href="@{/perfil/editar}" class="btn btn-warning-soft">Editar perfil</a>
+					<a th:href="@{/perfil/senha}" class="btn btn-ghost">Alterar senha</a>
+				</div>
+			</div>
+
+			<div class="row g-4">
+				<div class="col-lg-4">
+					<div class="info-card p-4 h-100">
+						<div class="avatar-chip mb-3" th:text="${usuario.nome != null and !usuario.nome.isEmpty() ? #strings.substring(usuario.nome,0,1) : 'U'}">U</div>
+						<h2 class="h4 fw-bold mb-1" th:text="${usuario.nome}">Nome</h2>
+						<p class="muted-text mb-4" th:text="${usuario.email}">Email</p>
+						<div class="d-grid gap-2">
+							<div class="badge-soft justify-content-between"><span>Status</span><strong th:text="${usuario.ativo ? 'Ativo' : 'Inativo'}">Ativo</strong></div>
+							<div class="badge-soft justify-content-between"><span>Papel</span><strong th:text="${usuario.papel}">USER</strong></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="info-card p-4 p-lg-5 h-100">
+						<h2 class="h5 fw-bold mb-3">Resumo da conta</h2>
+						<div class="timeline">
+							<div class="timeline-item">
+								<div class="fw-semibold">Nome completo</div>
+								<div class="muted-text" th:text="${usuario.nome}">Nome</div>
+							</div>
+							<div class="timeline-item">
+								<div class="fw-semibold">Email de acesso</div>
+								<div class="muted-text" th:text="${usuario.email}">Email</div>
+							</div>
+							<div class="timeline-item">
+								<div class="fw-semibold">Segurança</div>
+								<div class="muted-text">Sua sessão é gerenciada pelo Spring Security com logout no menu superior.</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>

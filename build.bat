@@ -1,4 +1,8 @@
 @echo off
+setlocal
+set "SCRIPT_DIR=%~dp0"
+set "MVN_CMD=%SCRIPT_DIR%mvnw.cmd"
+if not exist "%MVN_CMD%" set "MVN_CMD=mvn"
 echo ===================================
 echo Biblioteca Pessoal - Build Script
 echo ===================================
@@ -38,7 +42,7 @@ goto menu
 
 :compile
 echo [INFO] Compilando o projeto...
-call mvn clean compile -q
+call "%MVN_CMD%" clean compile -q
 if %ERRORLEVEL% EQU 0 (
     echo [SUCCESS] Compilacao concluida com sucesso!
 ) else (
@@ -48,7 +52,7 @@ goto end
 
 :test
 echo [INFO] Executando testes...
-call mvn test
+call "%MVN_CMD%" test
 if %ERRORLEVEL% EQU 0 (
     echo [SUCCESS] Todos os testes passaram!
 ) else (
@@ -58,7 +62,7 @@ goto end
 
 :coverage
 echo [INFO] Gerando relatorio de cobertura...
-call mvn test jacoco:report -q
+call "%MVN_CMD%" test jacoco:report -q
 if %ERRORLEVEL% EQU 0 (
     echo [SUCCESS] Relatorio gerado em: target/site/jacoco/index.html
     start target/site/jacoco/index.html
@@ -72,22 +76,22 @@ echo [INFO] Iniciando aplicacao...
 echo [INFO] Acesse: http://localhost:8080
 echo [INFO] Pressione Ctrl+C para parar
 echo.
-call mvn spring-boot:run
+call "%MVN_CMD%" spring-boot:run
 goto end
 
 :clean
 echo [INFO] Limpando arquivos gerados...
-call mvn clean -q
+call "%MVN_CMD%" clean -q
 if exist data rmdir /s /q data
 echo [SUCCESS] Limpeza concluida!
 goto end
 
 :package
 echo [INFO] Gerando JAR executavel...
-call mvn clean package -DskipTests -q
+call "%MVN_CMD%" clean package -Dmaven.test.skip=true -q
 if %ERRORLEVEL% EQU 0 (
-    echo [SUCCESS] JAR gerado em: target/biblioteca-pessoal-1.0.0.jar
-    echo [INFO] Para executar: java -jar target/biblioteca-pessoal-1.0.0.jar
+    echo [SUCCESS] JAR gerado em: target/gerenciador-biblioteca-pessoal-1.0.0.jar
+    echo [INFO] Para executar: java -jar target/gerenciador-biblioteca-pessoal-1.0.0.jar
 ) else (
     echo [ERROR] Falha ao gerar JAR!
 )
