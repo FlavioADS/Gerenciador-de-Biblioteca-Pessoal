@@ -41,5 +41,6 @@ echo [INFO] Acesse: http://localhost:8080
 echo [INFO] Pressione Ctrl+C para parar
 echo.
 
+if not defined BIBLIOTECA_DB_PASSWORD set "BIBLIOTECA_DB_PASSWORD=biblioteca123"
 "%JAVA_CMD%" -jar "%JAR_NAME%"
 pause

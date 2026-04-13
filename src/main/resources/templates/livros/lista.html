@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragments :: head('Livros - Biblioteca Pessoal')}"></head>
+<head>
+	<title>Livros - Biblioteca Pessoal</title>
+	<th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
 <body class="app-shell">
 <div class="page-wrap">
 	<div class="container-xxl">
@@ -31,7 +34,7 @@
 			<div class="col-md-6 col-xl-4" th:each="livro : ${livros}">
 				<article class="book-card h-100 p-4">
 					<div class="book-cover mb-3" th:if="${livro.urlCapa != null and !#strings.isEmpty(livro.urlCapa)}">
-						<img th:src="${livro.urlCapa}" th:alt="|Capa do livro ${livro.titulo}|" class="book-cover-image" onerror="this.onerror=null;this.src='/img/capa-indisponivel.svg';">
+						<img th:src="${livro.urlCapa}" th:alt="|Capa do livro ${livro.titulo}|" class="book-cover-image" th:data-fallback="@{/img/capa-indisponivel.svg}">
 					</div>
 					<div class="book-cover mb-3" th:unless="${livro.urlCapa != null and !#strings.isEmpty(livro.urlCapa)}">
 						<div>
@@ -66,5 +69,6 @@
 		</section>
 	</div>
 </div>
+<th:block th:replace="~{fragments :: scripts}"></th:block>
 </body>
 </html>

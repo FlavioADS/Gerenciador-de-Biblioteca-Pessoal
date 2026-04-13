@@ -3,7 +3,6 @@ package com.biblioteca.service;
 import com.biblioteca.model.Livro;
 import com.biblioteca.model.Livro.StatusLeitura;
 import com.biblioteca.repository.LivroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
@@ -12,16 +11,16 @@ import java.util.Map;
 @Service
 public class LivroService {
 
-    @Autowired
-    private LivroRepository livroRepository;
+    private final LivroRepository livroRepository;
+    private final OpenLibraryClient openLibraryClient;
 
-    @Autowired
-    private OpenLibraryClient openLibraryClient;
+    public LivroService(LivroRepository livroRepository, OpenLibraryClient openLibraryClient) {
+        this.livroRepository = livroRepository;
+        this.openLibraryClient = openLibraryClient;
+    }
 
     public Livro salvarLivro(Livro livro) {
-        normalizarCampos(livro);
-        enriquecerCapaSeNecessario(livro);
-        return livroRepository.save(livro);
+        return persistirLivro(livro);
     }
 
     public Livro buscarPorId(Long id) {
@@ -33,6 +32,10 @@ public class LivroService {
     }
 
     public Livro atualizarLivro(Livro livro) {
+        return persistirLivro(livro);
+    }
+
+    private Livro persistirLivro(Livro livro) {
         normalizarCampos(livro);
         enriquecerCapaSeNecessario(livro);
         return livroRepository.save(livro);

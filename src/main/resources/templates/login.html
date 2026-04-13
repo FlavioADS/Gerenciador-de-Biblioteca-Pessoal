@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head('Entrar - Biblioteca Pessoal')}"></head>
+<head>
+	<title>Entrar - Biblioteca Pessoal</title>
+	<th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
 <body class="app-shell">
 <main class="page-wrap d-flex align-items-center">
 	<div class="container-xxl">
@@ -69,5 +72,6 @@
 		</div>
 	</div>
 </main>
+<th:block th:replace="~{fragments :: scripts}"></th:block>
 </body>
 </html>

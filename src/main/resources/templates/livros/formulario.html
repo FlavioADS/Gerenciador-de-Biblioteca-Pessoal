@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head('Livro')}"></head>
+<head>
+	<title th:text="${livro.id} != null ? 'Editar livro - Biblioteca Pessoal' : 'Cadastrar livro - Biblioteca Pessoal'">Livro - Biblioteca Pessoal</title>
+	<th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
 <body class="app-shell">
 <div class="page-wrap">
 	<div class="container-xxl">
@@ -127,5 +130,6 @@
 		</section>
 	</div>
 </div>
+<th:block th:replace="~{fragments :: scripts}"></th:block>
 </body>
 </html>

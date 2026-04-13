@@ -90,7 +90,6 @@ body.app-shell {
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, var(--primary-strong), #8b5cf6);
-    color: white;
     box-shadow: 0 12px 24px rgba(56, 189, 248, 0.28);
 }
 
@@ -120,7 +119,7 @@ body.app-shell {
 .hero-copy p,
 .muted-text,
 .small-muted {
-    color: var(--muted);
+    color: #c2cada;
 }
 
 .hero-stats {
@@ -187,25 +186,24 @@ body.app-shell {
 
 .btn-ghost:hover {
     background: rgba(255, 255, 255, 0.11);
-    color: white;
 }
 
 .btn-warning-soft {
-    background: rgba(245, 158, 11, 0.14);
-    color: #ffcf7a;
-    border: 1px solid rgba(245, 158, 11, 0.25);
+    background: rgba(245, 158, 11, 0.22);
+    color: #1b2433;
+    border: 1px solid rgba(245, 158, 11, 0.35);
 }
 
 .btn-danger-soft {
-    background: rgba(251, 113, 133, 0.14);
-    color: #ffb5c0;
-    border: 1px solid rgba(251, 113, 133, 0.24);
+    background: rgba(251, 113, 133, 0.22);
+    color: #1b2433;
+    border: 1px solid rgba(251, 113, 133, 0.35);
 }
 
 .btn-success-soft {
-    background: rgba(34, 197, 94, 0.14);
-    color: #a7f3d0;
-    border: 1px solid rgba(34, 197, 94, 0.24);
+    background: rgba(34, 197, 94, 0.22);
+    color: #1b2433;
+    border: 1px solid rgba(34, 197, 94, 0.35);
 }
 
 .badge-soft {
@@ -371,12 +369,12 @@ body.app-shell {
 }
 
 .remember-label {
-    color: #ffffff !important;
+    color: #f7f9ff !important;
     opacity: 1 !important;
 }
 
 .remember-label * {
-    color: #ffffff !important;
+    color: #f7f9ff !important;
     opacity: 1 !important;
 }
 
