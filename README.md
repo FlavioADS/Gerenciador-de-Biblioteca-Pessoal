@@ -30,6 +30,40 @@ Sistema de gerenciamento de biblioteca pessoal desenvolvido com Spring Boot.
 
 ## Pré-requisitos
 * Java 17 ou superior
-* Maven 3.6 ou superior
+* Maven 3.6 ou superior (opcional, se usar Maven Wrapper)
 * MySQL 8.0 ou superior
 * Docker Desktop (para rodar os testes)
+
+## Banco de dados local com Docker
+
+Suba o MySQL do projeto com:
+
+```powershell
+docker compose up -d
+```
+
+Credenciais usadas pela aplicação:
+
+* Banco: `biblioteca_pessoal`
+* Usuário: `biblioteca`
+* Senha: `biblioteca123`
+* Porta: `3307`
+
+Depois rode a aplicação ou os testes com o banco ativo:
+
+```powershell
+.\mvnw.cmd test
+```
+
+Para iniciar a aplicação com Maven Wrapper:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+Se quiser conectar no MySQL Workbench, use:
+
+* Host: `localhost`
+* Port: `3307`
+* User: `biblioteca`
+* Password: `biblioteca123`

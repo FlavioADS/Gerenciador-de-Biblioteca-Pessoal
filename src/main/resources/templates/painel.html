@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>Painel - Biblioteca Pessoal</title>
+	<th:block th:replace="~{fragments :: styles}"></th:block>
+</head>
+<body class="app-shell">
+<div class="page-wrap">
+	<div class="container-xxl">
+		<div th:replace="~{fragments :: navbar('painel')}"></div>
+
+		<section class="surface hero-panel reveal mb-4">
+			<div class="row align-items-center g-4">
+				<div class="col-lg-8">
+					<div class="d-flex align-items-center gap-2 mb-3">
+						<span class="badge-soft"><i class="bi bi-stars"></i> Visão geral</span>
+						<span class="badge-soft"><i class="bi bi-person-badge"></i> <span sec:authentication="name">usuario</span></span>
+					</div>
+					<h1 class="display-6 fw-bold mb-3">Bem-vindo ao seu painel de leitura.</h1>
+					<p class="lead muted-text mb-0">Acompanhe seus livros, continue de onde parou e mantenha sua organização em um espaço único e responsivo.</p>
+				</div>
+				<div class="col-lg-4">
+					<div class="surface-soft p-4">
+						<div class="small-muted mb-2">Atalho rápido</div>
+						<div class="d-grid gap-2">
+							<a th:href="@{/livros/novo}" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i>Adicionar livro</a>
+							<a th:href="@{/perfil}" class="btn btn-ghost"><i class="bi bi-person-gear me-1"></i>Ver perfil</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="kpi-grid mb-4">
+			<div class="kpi reveal">
+				<div class="kpi-label mb-2">Total</div>
+				<div class="kpi-value" th:text="${estatisticas['total'] ?: 0}">0</div>
+				<div class="small-muted">livros cadastrados</div>
+			</div>
+			<div class="kpi reveal reveal-delay-1">
+				<div class="kpi-label mb-2">Lendo</div>
+				<div class="kpi-value" th:text="${estatisticas['lendo'] ?: 0}">0</div>
+				<div class="small-muted">em andamento</div>
+			</div>
+			<div class="kpi reveal reveal-delay-2">
+				<div class="kpi-label mb-2">Concluídos</div>
+				<div class="kpi-value" th:text="${estatisticas['concluidos'] ?: 0}">0</div>
+				<div class="small-muted">finalizados</div>
+			</div>
+			<div class="kpi reveal reveal-delay-3">
+				<div class="kpi-label mb-2">Pausados</div>
+				<div class="kpi-value" th:text="${estatisticas['pausados'] ?: 0}">0</div>
+				<div class="small-muted">aguardando retomada</div>
+			</div>
+		</section>
+
+		<section class="surface p-4 p-lg-5 reveal">
+			<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+				<div>
+					<h2 class="section-title h4 fw-bold mb-1">Livros recentes</h2>
+					<p class="muted-text mb-0">Uma visão rápida do que já está na sua estante digital.</p>
+				</div>
+				<a th:href="@{/livros}" class="btn btn-ghost">Abrir biblioteca</a>
+			</div>
+
+			<div th:if="${#lists.isEmpty(livrosRecentes)}" class="alert alert-glass border-0 mb-0">
+				Você ainda não tem livros cadastrados. Clique em <strong>Adicionar livro</strong> para começar.
+			</div>
+
+			<div class="row g-3" th:unless="${#lists.isEmpty(livrosRecentes)}">
+				<div class="col-md-6 col-xl-4" th:each="livro : ${livrosRecentes}">
+					<article class="book-card h-100 p-4">
+						<div class="book-cover mb-3" th:if="${livro.urlCapa != null and !#strings.isEmpty(livro.urlCapa)}">
+							<img th:src="${livro.urlCapa}" th:alt="|Capa do livro ${livro.titulo}|" class="book-cover-image" th:data-fallback="@{/img/capa-indisponivel.svg}">
+						</div>
+						<div class="book-cover mb-3" th:unless="${livro.urlCapa != null and !#strings.isEmpty(livro.urlCapa)}">
+							<div>
+								<small class="d-block mb-1">Status</small>
+								<h3 class="h5 mb-0" th:text="${livro.statusLeitura.nomeExibicao}">Lendo</h3>
+							</div>
+						</div>
+						<h3 class="h5 fw-bold mb-1" th:text="${livro.titulo}">Título</h3>
+						<p class="muted-text mb-3" th:text="${livro.autor}">Autor</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<span class="badge-soft" th:text="${livro.genero ?: 'Sem gênero'}">Gênero</span>
+							<a th:href="@{/livros/{id}(id=${livro.id})}" class="btn btn-sm btn-ghost">Detalhes</a>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+<th:block th:replace="~{fragments :: scripts}"></th:block>
+</body>
+</html>
