@@ -263,16 +263,12 @@ graph TD
     B --> C[Evidência]
 ```
 
-Exemplo com ícones (Iconify):
+Exemplo com nós simples:
 
 ```mermaid
-architecture-beta
-    service usuario(mdi:account)
-    service api(logos:spring-icon)
-    service banco(logos:mysql)
-
-    usuario:R --> L:api
-    api:R --> L:banco
+graph LR
+    Usuario[Usuário] --> API[Aplicação Spring Boot]
+    API --> DB[(MySQL)]
 ```
 
 Configuração recomendada no VS Code:

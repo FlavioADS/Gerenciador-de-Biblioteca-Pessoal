@@ -42,6 +42,12 @@ Suba o MySQL do projeto com:
 docker compose up -d
 ```
 
+Se for iniciar a aplicação manualmente, defina a senha usada pela aplicação antes de rodar o Maven:
+
+```powershell
+$env:BIBLIOTECA_DB_PASSWORD="biblioteca123"
+```
+
 Credenciais usadas pela aplicação:
 
 * Banco: `biblioteca_pessoal`
