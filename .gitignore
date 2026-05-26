@@ -6,6 +6,7 @@
 
 # Package files
 *.jar
+!/.mvn/wrapper/maven-wrapper.jar
 *.war
 *.ear
 *.zip
@@ -22,7 +23,6 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
 
 # IDE - IntelliJ
 .idea/
