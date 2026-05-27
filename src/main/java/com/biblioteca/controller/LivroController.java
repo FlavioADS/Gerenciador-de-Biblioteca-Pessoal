@@ -19,6 +19,11 @@ import java.util.List;
 @RequestMapping("/livros")
 public class LivroController {
 
+    private static final String STATUSLEITURAS = "statusLeituras";
+    private static final String LIVRO = "livro";
+    private static final String MENSAGEMSUCESSO = "mensagemSucesso";
+    private static final String REDIRECT = "redirect:/livros";
+
     @Autowired
     private LivroService livroService;
 
@@ -30,14 +35,14 @@ public class LivroController {
         Usuario usuario = usuarioService.buscarPorEmail(detalhesUsuario.getUsername());
         List<Livro> livros = livroService.listarLivrosDoUsuario(usuario.getId());
         modelo.addAttribute("livros", livros);
-        modelo.addAttribute("statusLeituras", StatusLeitura.values());
+        modelo.addAttribute(STATUSLEITURAS, StatusLeitura.values());
         return "livros/lista";
     }
 
     @GetMapping("/novo")
     public String novoLivroFormulario(Model modelo) {
-        modelo.addAttribute("livro", new Livro());
-        modelo.addAttribute("statusLeituras", StatusLeitura.values());
+        modelo.addAttribute(LIVRO, new Livro());
+        modelo.addAttribute(STATUSLEITURAS, StatusLeitura.values());
         return "livros/formulario";
     }
 
@@ -49,22 +54,22 @@ public class LivroController {
         Usuario usuario = usuarioService.buscarPorEmail(detalhesUsuario.getUsername());
         livro.setUsuario(usuario);
         livroService.salvarLivro(livro);
-        redirecionamento.addFlashAttribute("mensagemSucesso", "Livro cadastrado com sucesso!");
-        return "redirect:/livros";
+        redirecionamento.addFlashAttribute(MENSAGEMSUCESSO, "Livro cadastrado com sucesso!");
+        return REDIRECT;
     }
 
     @GetMapping("/{id}")
     public String verLivro(@PathVariable Long id, Model modelo) {
         Livro livro = livroService.buscarPorId(id);
-        modelo.addAttribute("livro", livro);
+        modelo.addAttribute(LIVRO, livro);
         return "livros/detalhes";
     }
 
     @GetMapping("/{id}/editar")
     public String editarLivroFormulario(@PathVariable Long id, Model modelo) {
         Livro livro = livroService.buscarPorId(id);
-        modelo.addAttribute("livro", livro);
-        modelo.addAttribute("statusLeituras", StatusLeitura.values());
+        modelo.addAttribute(LIVRO, livro);
+        modelo.addAttribute(STATUSLEITURAS, StatusLeitura.values());
         return "livros/formulario";
     }
 
@@ -77,15 +82,15 @@ public class LivroController {
         livro.setId(id);
         livro.setUsuario(livroExistente.getUsuario());
         livroService.atualizarLivro(livro);
-        redirecionamento.addFlashAttribute("mensagemSucesso", "Livro atualizado com sucesso!");
-        return "redirect:/livros";
+        redirecionamento.addFlashAttribute(MENSAGEMSUCESSO, "Livro atualizado com sucesso!");
+        return REDIRECT;
     }
 
     @PostMapping("/{id}/excluir")
     public String excluirLivro(@PathVariable Long id, RedirectAttributes redirecionamento) {
         livroService.excluirLivro(id);
-        redirecionamento.addFlashAttribute("mensagemSucesso", "Livro excluído com sucesso!");
-        return "redirect:/livros";
+        redirecionamento.addFlashAttribute(MENSAGEMSUCESSO, "Livro excluído com sucesso!");
+        return REDIRECT;
     }
 
     @PostMapping("/{id}/status")
@@ -93,7 +98,7 @@ public class LivroController {
                                   @RequestParam StatusLeitura statusLeitura,
                                   RedirectAttributes redirecionamento) {
         livroService.atualizarStatus(id, statusLeitura);
-        redirecionamento.addFlashAttribute("mensagemSucesso", "Status atualizado com sucesso!");
-        return "redirect:/livros";
+        redirecionamento.addFlashAttribute(MENSAGEMSUCESSO, "Status atualizado com sucesso!");
+        return REDIRECT;
     }
 }
