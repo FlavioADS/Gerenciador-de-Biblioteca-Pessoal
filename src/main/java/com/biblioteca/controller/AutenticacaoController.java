@@ -13,6 +13,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class AutenticacaoController {
 
+    private static final String USUARIO = "usuario";
+    private static final String REGISTRO = "registro";
+    private static final String MENSAGEMERRO = "mensagemErro";
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -28,8 +32,8 @@ public class AutenticacaoController {
 
     @GetMapping("/registro")
     public String paginaRegistro(Model modelo) {
-        modelo.addAttribute("usuario", new Usuario());
-        return "registro";
+        modelo.addAttribute(USUARIO, new Usuario());
+        return REGISTRO;
     }
 
     @PostMapping("/registro")
@@ -41,15 +45,15 @@ public class AutenticacaoController {
                                    Model modelo) {
 
         if (!senha.equals(confirmarSenha)) {
-            modelo.addAttribute("mensagemErro", "As senhas não conferem");
-            modelo.addAttribute("usuario", new Usuario());
-            return "registro";
+            modelo.addAttribute(MENSAGEMERRO, "As senhas não conferem");
+            modelo.addAttribute(USUARIO, new Usuario());
+            return REGISTRO;
         }
 
         if (usuarioService.existeEmail(email)) {
-            modelo.addAttribute("mensagemErro", "Este email já está cadastrado");
-            modelo.addAttribute("usuario", new Usuario());
-            return "registro";
+            modelo.addAttribute(MENSAGEMERRO, "Este email já está cadastrado");
+            modelo.addAttribute(USUARIO, new Usuario());
+            return REGISTRO;
         }
 
         try {
@@ -57,9 +61,9 @@ public class AutenticacaoController {
             redirecionamento.addFlashAttribute("mensagemSucesso", "Cadastro realizado com sucesso! Faça login.");
             return "redirect:/login";
         } catch (Exception e) {
-            modelo.addAttribute("mensagemErro", "Erro ao cadastrar: " + e.getMessage());
-            modelo.addAttribute("usuario", new Usuario());
-            return "registro";
+            modelo.addAttribute(MENSAGEMERRO, "Erro ao cadastrar: " + e.getMessage());
+            modelo.addAttribute(USUARIO, new Usuario());
+            return REGISTRO;
         }
     }
 }

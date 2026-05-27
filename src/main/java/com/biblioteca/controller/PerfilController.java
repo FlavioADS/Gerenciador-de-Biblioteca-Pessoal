@@ -14,6 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/perfil")
 public class PerfilController {
 
+    private static final String PERFIL = "perfil/senha";
+    private static final String MENSAGEMERRO = "mensagemErro";
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -44,7 +47,7 @@ public class PerfilController {
 
     @GetMapping("/senha")
     public String alterarSenhaFormulario() {
-        return "perfil/senha";
+        return PERFIL;
     }
 
     @PostMapping("/senha")
@@ -56,13 +59,13 @@ public class PerfilController {
                                Model modelo) {
 
         if (!novaSenha.equals(confirmarSenha)) {
-            modelo.addAttribute("mensagemErro", "As senhas não conferem");
-            return "perfil/senha";
+            modelo.addAttribute(MENSAGEMERRO, "As senhas não conferem");
+            return PERFIL;
         }
 
         if (novaSenha.length() < 6) {
-            modelo.addAttribute("mensagemErro", "A nova senha deve ter no mínimo 6 caracteres");
-            return "perfil/senha";
+            modelo.addAttribute(MENSAGEMERRO, "A nova senha deve ter no mínimo 6 caracteres");
+            return PERFIL;
         }
 
         Usuario usuario = usuarioService.buscarPorEmail(detalhesUsuario.getUsername());
@@ -72,8 +75,8 @@ public class PerfilController {
             redirecionamento.addFlashAttribute("mensagemSucesso", "Senha alterada com sucesso!");
             return "redirect:/perfil";
         } else {
-            modelo.addAttribute("mensagemErro", "Senha atual incorreta");
-            return "perfil/senha";
+            modelo.addAttribute(MENSAGEMERRO, "Senha atual incorreta");
+            return PERFIL;
         }
     }
 }
