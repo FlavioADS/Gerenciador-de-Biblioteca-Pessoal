@@ -1,5 +1,6 @@
 package com.biblioteca.service;
 
+import com.biblioteca.exception.UsuarioJaExisteException;
 import com.biblioteca.model.Usuario;
 import com.biblioteca.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class UsuarioService {
 
     public Usuario registrarUsuario(String nome, String email, String senha) {
         if (usuarioRepository.existsByEmail(email)) {
-            throw new RuntimeException("Já existe um usuário com este email");
+            throw new UsuarioJaExisteException("Já existe um usuário com este email");
         }
 
         Usuario usuario = new Usuario();
